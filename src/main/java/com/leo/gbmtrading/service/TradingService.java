@@ -128,27 +128,11 @@ public class TradingService {
 		}).filter(s -> !s.isBlank()).collect(Collectors.toList());
 	}
 
-	private OrdersQueue getOrders() {
-		return orders;
-	}
-
-	private void setOrders(OrdersQueue orders) {
-		this.orders = orders;
-	}
-
 	private InitialBalances getInitialBalances() {
 		return balance;
 	}
 
-	private void setInitialBalances(InitialBalances initialBalances) {
-		this.balance = initialBalances;
-	}
-
 	private Map<String, Issuer> getIssuers() {
 		return issuers;
-	}
-
-	private void setIssuers(Map<String, Issuer> issuers) {
-		this.issuers = issuers;
 	}
 }
