@@ -113,6 +113,10 @@ public class TradingService {
 		return generateJSONResponse(businessErrors);
 	}
 
+	/**
+	 * @return Final representation of InitialBalance in JSON format
+	 * @throws JsonProcessingException
+	 */
 	private String generateJSONResponse(List<String> businessErrors) throws JsonProcessingException {
 		var balanceResults = new InitialBalance();
         balanceResults.setInitialBalances(balance);
@@ -120,6 +124,11 @@ public class TradingService {
         return new ObjectMapper().writeValueAsString(balanceResults);
 	}
 
+	/**
+	 * Fetches error msgs from "futures"
+	 * @param futures list of Future<String> objects returned by the invokeAll(...) method
+	 * @return a list containing all error msgs found in "futures"
+	 */
 	private List<String> fetchResults(List<Future<String>> futures) {
 		return futures.parallelStream().map(f -> {
 			String r = "";

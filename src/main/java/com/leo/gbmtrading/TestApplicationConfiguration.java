@@ -9,5 +9,10 @@ import org.springframework.context.annotation.FilterType;
 @Configuration
 @ComponentScan(excludeFilters = @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, value = CommandLineRunner.class))
 @EnableAutoConfiguration
+
+/**
+ * Configuration component used to avoid running TradingConsoleApplication as a CommandLineRunner
+ * when running JUnit tests
+ */
 public class TestApplicationConfiguration {
 }

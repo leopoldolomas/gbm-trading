@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 
 import com.leo.gbmtrading.model.Order;
 
+/**
+ * Contains all Orders to be processed in a Queue (FIFO)
+ */
 @Component
 public class OrdersQueue implements Iterable<Order> {
 	

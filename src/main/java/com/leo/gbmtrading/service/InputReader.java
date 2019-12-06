@@ -65,9 +65,12 @@ public class InputReader {
 		}).collect(Collectors.toList());
 	}
 
+	/**
+	 * Given the list of Issuers, populate the Issuers hash map for faster
+     * read/write operations
+	 */
 	private void populateIssuersMap() {
-		// given the list of Issuers, populate the Issuers hash map for faster
-		// read/write operations
+		
 		issuersMap = new ConcurrentHashMap<>();
 		for (var issuer : initialBalances.getIssuers()) {
 			issuersMap.put(issuer.getIssuerName(), issuer);
