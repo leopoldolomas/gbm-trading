@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -25,23 +28,31 @@ public class InitialBalances implements Serializable {
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
     private final static long serialVersionUID = 3086573524075651516L;
+    
+    final private Lock lock = new ReentrantLock();
 
     public int updateCash(int cash) {
-        synchronized(this.cash) {
-            return this.cash += cash;
-        }
+    	Integer r;
+    	lock.lock();
+    	r = this.cash += cash;
+    	lock.unlock();
+    	return r;
     }
     
     @JsonProperty("cash")
     public Integer getCash() {
-        return cash;
+    	Integer r;
+    	lock.lock();
+    	r = cash;
+    	lock.unlock();
+        return r;
     }
     
     @JsonProperty("cash")
     public void setCash(Integer cash) {
-        synchronized(this.cash) {
-            this.cash = cash;
-        }        
+    	lock.lock();
+    	this.cash = cash;
+    	lock.unlock();    
     }
     
     @JsonProperty("issuers")

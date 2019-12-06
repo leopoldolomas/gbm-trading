@@ -3,6 +3,9 @@ package com.leo.gbmtrading.model;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -27,6 +30,8 @@ public class Issuer implements Serializable {
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
     private final static long serialVersionUID = -2636222230300443413L;
     
+    private final Lock lock = new ReentrantLock();
+    
     @JsonProperty("issuerName")
     public String getIssuerName() {
         return issuerName;
@@ -39,14 +44,18 @@ public class Issuer implements Serializable {
     
     @JsonProperty("totalShares")
     public Integer getTotalShares() {
-        return totalShares;
+    	Integer r;
+    	lock.lock();
+        r = totalShares;
+        lock.unlock();
+        return r;
     }
     
     @JsonProperty("totalShares")
-    public void setTotalShares(Integer totalShares) {
-        synchronized(this.totalShares) {
-            this.totalShares = totalShares;
-        }        
+    public void setTotalShares(Integer totalShares) {    	
+    	lock.lock();
+    	this.totalShares = totalShares;
+        lock.unlock();    
     }
     
     @JsonProperty("sharePrice")
@@ -56,15 +65,13 @@ public class Issuer implements Serializable {
     
     @JsonProperty("sharePrice")
     public void setSharePrice(Integer sharePrice) {
-        synchronized(this.sharePrice) {
-            this.sharePrice = sharePrice;
-        }
+    	this.sharePrice = sharePrice;
     }
 
     public void updateNoOfShares(int shares) {
-        synchronized(this.totalShares) {
-            this.totalShares += shares;
-        }
+    	lock.lock();
+    	this.totalShares += shares;
+        lock.unlock();  
     }
     
     @JsonAnyGetter
