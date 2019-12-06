@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -27,14 +28,17 @@ import com.leo.gbmtrading.model.Order;
  */
 @Configuration
 public class InputReader {
-	private final String inputFilename = "input";
+	
+	private static String inputFilename = "input";
+	
 	private InitialBalances initialBalances;
 	private Map<String, Issuer> issuersMap;
 	private List<Order> orderList;
+	private ObjectMapper objectMapper = new ObjectMapper();
 
 	public InputReader() throws IOException {
 		try (var inputStreamReader = new InputStreamReader(ClassLoader.getSystemResourceAsStream(inputFilename));
-				var bufferedReader = new BufferedReader(inputStreamReader)) {
+			 var bufferedReader = new BufferedReader(inputStreamReader)) {
 
 			readInitialBalances(bufferedReader);
 			populateIssuersMap();
@@ -53,8 +57,7 @@ public class InputReader {
 		orderList = Stream.of(ordersArray).parallel().map(o -> {
 			try {
 				// TODO avoid append operation (slooooow)
-				// TODO reuse ObjectMapper?
-				return new ObjectMapper().readValue(o + "}", Order.class);
+				return objectMapper.readValue(o + "}", Order.class);
 			} catch (JsonProcessingException e) {
 				// log error
 			}
@@ -101,5 +104,15 @@ public class InputReader {
 	@Bean
 	public Map<String, Issuer> getIssuersMap() {
 		return issuersMap;
+	}
+	
+	/**
+	 * TODO This is an ugly way to specify the filename, ideally it should be
+	 * defined in application.properties
+	 * @param filename
+	 */
+	public static void setInputFilename(String filename) {
+		Objects.requireNonNull(filename);
+		inputFilename = filename;
 	}
 }
