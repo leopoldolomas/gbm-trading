@@ -1,6 +1,6 @@
 {
    "initialBalances":{
-      "cash":1000,
+      "cash":0,
       "issuers":[
          {
             "issuerName":"GBM",
@@ -15,12 +15,5 @@
    "operation":"BUY",
    "IssuerName":"GBM",
    "TotalShares":10,
-   "SharePrice":10
-}
-{
-   "timestamp":1571327535,
-   "operation":"SELL",
-   "IssuerName":"GBM",
-   "TotalShares":5,
    "SharePrice":10
 }

@@ -4,7 +4,7 @@
       "issuers":[
          {
             "issuerName":"GBM",
-            "totalShares":10,
+            "totalShares":0,
             "sharePrice":10
          }
       ]
@@ -12,15 +12,8 @@
 }
 {
    "timestamp":1571325625,
-   "operation":"BUY",
-   "IssuerName":"GBM",
-   "TotalShares":10,
-   "SharePrice":10
-}
-{
-   "timestamp":1571327535,
    "operation":"SELL",
    "IssuerName":"GBM",
-   "TotalShares":5,
+   "TotalShares":10,
    "SharePrice":10
 }

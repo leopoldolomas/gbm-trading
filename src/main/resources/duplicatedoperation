@@ -14,13 +14,13 @@
    "timestamp":1571325625,
    "operation":"BUY",
    "IssuerName":"GBM",
-   "TotalShares":10,
+   "TotalShares":1,
    "SharePrice":10
 }
 {
-   "timestamp":1571327535,
-   "operation":"SELL",
+   "timestamp":1571325626,
+   "operation":"BUY",
    "IssuerName":"GBM",
-   "TotalShares":5,
+   "TotalShares":1,
    "SharePrice":10
 }
