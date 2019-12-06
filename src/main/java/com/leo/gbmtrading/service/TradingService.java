@@ -105,6 +105,10 @@ public class TradingService {
 		
 		var futures = executor.invokeAll(callables);
 		executor.shutdown();
+		
+		// update issuers
+        getInitialBalances().setIssuers(new ArrayList<>(issuers.values()));
+		
 		var businessErrors = fetchResults(futures);		
 		return generateJSONResponse(businessErrors);
 	}
@@ -125,7 +129,7 @@ public class TradingService {
 				LOG.error(e.getMessage());
 			}
 			return r;
-		}).filter(s -> !s.isBlank()).collect(Collectors.toList());
+		}).filter(s -> !s.isEmpty()).collect(Collectors.toList());
 	}
 
 	private InitialBalances getInitialBalances() {
