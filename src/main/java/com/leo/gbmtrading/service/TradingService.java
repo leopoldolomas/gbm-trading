@@ -48,7 +48,7 @@ public class TradingService {
 	 * @throws JsonProcessingException 
 	 */
 	public String processOrders() throws InterruptedException, JsonProcessingException {
-		var executor = Executors.newSingleThreadExecutor(); //Executors.newCachedThreadPool();
+		var executor = Executors.newCachedThreadPool();
 		var callables = new ArrayList<Callable<String>>();
 
 		for (Order order : orders) {
