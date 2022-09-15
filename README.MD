@@ -1,3 +1,4 @@
+(Just an old assignment when trying to join GBM. Making this repo public so they come up with new assignment ideas)
 # GBM Trading project
 ## Compiling and Running
 ### Prerequisites
